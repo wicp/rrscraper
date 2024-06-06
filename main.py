@@ -80,15 +80,15 @@ if __name__ == "__main__":
     title_div = soup.find("div", class_="fic-title")
     title = title_div.div.h1.text
     author = title_div.a.text
-    # for chapter in soup.find_all("tr", class_="chapter-row"):
-    #     chapter_link = chapter.a['href']
-    #     chapter_name = chapter.a.text.strip()
-    #     r = requests.get(url_root+chapter_link)
-    #     filename = f"{title}/{chapter_name}.html"
-    #     os.makedirs(os.path.dirname(filename), exist_ok=True)
-    #     with open(filename, 'w') as f:
-    #         f.write(r.text)
-    #     print(chapter_name)
+    for chapter in soup.find_all("tr", class_="chapter-row"):
+        chapter_link = chapter.a['href']
+        chapter_name = chapter.a.text.strip()
+        r = requests.get(url_root+chapter_link)
+        filename = f"{title}/{chapter_name}.html"
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+        with open(filename, 'w') as f:
+            f.write(r.text)
+        print(chapter_name)
     print(f"Writing {title}.epub...")
     create_epub(book_id,author,title)
 
